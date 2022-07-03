@@ -13,12 +13,12 @@ class Zoo:
 
     def add_animal(self, animal: Animal, price):
 
-        if len(self.animals) < self.__animal_capacity and self.__budget > 0:
+        if len(self.animals) < self.__animal_capacity and self.__budget >= price:
             self.animals.append(animal)
             self.__budget -= price
             return f'{animal.name} the {animal.__class__.__name__} added to the zoo'
 
-        if len(self.animals) > self.__animal_capacity and self.__budget <= 0:
+        if len(self.animals) > self.__animal_capacity and self.__budget < price:
             return f'Not enough budget'
 
         return f'Not enough space for animal'
