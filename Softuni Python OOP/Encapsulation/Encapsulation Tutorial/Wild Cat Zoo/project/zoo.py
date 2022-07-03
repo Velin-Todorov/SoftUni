@@ -18,7 +18,7 @@ class Zoo:
             self.__budget -= price
             return f'{animal.name} the {animal.__class__.__name__} added to the zoo'
 
-        if len(self.animals) > self.__animal_capacity and self.__budget < price:
+        if len(self.animals) < self.__animal_capacity and self.__budget < price:
             return f'Not enough budget'
 
         return f'Not enough space for animal'
@@ -97,4 +97,4 @@ class Zoo:
         result += self.__build_result_workers('Caretaker')
         result += self.__build_result_workers('Vet')
 
-        return result
+        return result.strip()
