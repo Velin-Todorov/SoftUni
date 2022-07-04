@@ -19,4 +19,3 @@ class Calculator:
     def subtract(*args):
         return functools.reduce(lambda a, b: a-b, args)
 
-
