@@ -11,7 +11,6 @@ class Mouse(Mammal):
     def make_sound(self):
         return 'Squeak'
 
-
 class Dog(Mammal):
     ALLOWED_FOODS = ['Meat']
     WEIGHT_INCREASE = 0.4
