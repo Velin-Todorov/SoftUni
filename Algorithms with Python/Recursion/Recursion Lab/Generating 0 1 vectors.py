@@ -9,7 +9,6 @@ def generating_vectors(idx, vector):
         generating_vectors(idx + 1, vector)
 
 
-
 n = int(input())
 vector = [None] * n
 
