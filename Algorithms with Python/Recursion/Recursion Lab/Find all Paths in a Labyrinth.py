@@ -1,11 +1,13 @@
 def is_outside(row, col, lab):
-    if row < 0 or col < 0 or row >= len(lab) or col >= len(lab):
+    if row < 0 or col < 0 or row >= len(lab) or col >= len(lab[0]):
         return True
     return False
+
 
 def cannot_move(lab, row, col):
     if lab[row][col] == '*':
         return True
+
 
 def marked_path(lab, row, col):
     if lab[row][col] == 'v':
@@ -41,8 +43,7 @@ def find_all_paths(row, col, lab, direction, path):
 
 n = int(input())
 m = int(input())
-
-matrix = [[x for x in input()] for i in range(n)]
+matrix = [[x for x in input()] for _ in range(n)]
 
 
 find_all_paths(0, 0, matrix, '', [])
