@@ -1,3 +1,4 @@
+
 def generating_vectors(idx, vector):
 
     if idx > len(vector) - 1:
