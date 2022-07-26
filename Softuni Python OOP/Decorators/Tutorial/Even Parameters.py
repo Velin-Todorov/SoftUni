@@ -1,5 +1,6 @@
 import functools
 
+
 def even_parameters(func):
 
     @functools.wraps(func)
