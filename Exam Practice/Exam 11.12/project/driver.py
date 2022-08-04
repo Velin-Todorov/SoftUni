@@ -11,7 +11,7 @@ class Driver:
 
     @name.setter
     def name(self, value):
-        if not value or '' in value:
+        if not value or ' ' in value:
             raise ValueError("Name should contain at least one character!")
         self.__name = value
 
