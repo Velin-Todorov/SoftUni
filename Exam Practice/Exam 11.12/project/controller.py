@@ -1,4 +1,3 @@
-from project.car.car import Car
 from project.car.muscle_car import MuscleCar
 from project.car.sports_car import SportsCar
 from project.driver import Driver
@@ -134,7 +133,6 @@ class Controller:
 
         for driver in top_3_cars_and_racers:
             driver.number_of_wins += 1
-            result += f'Driver {driver.name} wins the {race_name} with a speed of {driver.car.speed_limit}.\n'
+            result += f'Driver {driver.name} wins the {race_name} race with a speed of {driver.car.speed_limit}.\n'
 
-        return result
-
+        return result.strip()
