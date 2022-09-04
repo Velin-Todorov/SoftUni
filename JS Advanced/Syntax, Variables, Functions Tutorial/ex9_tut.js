@@ -6,7 +6,6 @@ function WordUpper(string){
     for (let i = 0; i < array_words.length; i++){
         array_words[i] = array_words[i].toUpperCase()
     }
-
     
     console.log(array_words.join(', '))
 }   
