@@ -1,11 +1,15 @@
 function SortingNumbers(arr){
     let new_arr = []
 
-    let sortedArr = arr.sort((a, b) => a - b);
-    let bigNumbers = (sortedArr.splice(sortedArr.length / 2, sortedArr.length - 1)).reverse();
+    while (arr.length){
+        let small = Math.min(...arr);
+        let high = Math.max(...arr);
 
-    for (let i = 0; i < bigNumbers.length; i++){
-        new_arr.push(sortedArr[i], bigNumbers[i]);
+        arr.splice(arr.indexOf(small), 1);
+        arr.splice(arr.indexOf(high), 1);
+
+        new_arr.push(small, high);
+ 
     }
     return new_arr;
 }
