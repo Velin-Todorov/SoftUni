@@ -1,8 +1,12 @@
 
 function PreviousDay(year, month, day){
-    let date = new Date(year, month, day)
-    const previous = new Date(date.getTime());
-    console.log(previous.setDate(date.getDate() - 1));
+    let today = new Date(year, month - 1, day)
+
+    let previousDate = new Date(today)
+
+    previousDate.setDate(previousDate.getDate() - 1)
+    return `${previousDate.getFullYear()}-${previousDate.getMonth() + 1}-${previousDate.getDate()}`
+
 }
 
-PreviousDay(2016, 9, 30)
+console.log(PreviousDay(2016, 10, 1))

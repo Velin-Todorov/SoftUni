@@ -1,18 +1,19 @@
-function GetStatus(speed){
-    if (speed <= 20){
-        return 'speeding'
-    }else if (speed <= 40){
-        return 'excessive speeding'
-    }else{
-        return 'reckless driving'
-    }
-}
-
-
 function RoadRadar(kmph, area){
     let difference = 0;
     let limit = 0;
     let status;
+
+
+    function GetStatus(speed){
+        if (speed <= 20){
+            return 'speeding'
+        }else if (speed <= 40){
+            return 'excessive speeding'
+        }else{
+            return 'reckless driving'
+        }
+    }
+    
 
     if (area == 'city'){
         limit = 50;

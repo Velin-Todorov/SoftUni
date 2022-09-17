@@ -1,12 +1,3 @@
-function CheckValidity(num1, num2, num3, num4, expression){
-    if (Number.isInteger(expression)){
-        return `{${num1}, ${num2}} to {${num3}, ${num4}} is valid`
-    }else{
-        return `{${num1}, ${num2}} to {${num3}, ${num4}} is invalid`
-    }
-}
-
-
 function ValidityChecker(n1, n2, n3, n4){
     let x0 = 0;
     let y0 = 0;
@@ -14,6 +5,14 @@ function ValidityChecker(n1, n2, n3, n4){
     let y1 = n2;
     let x2 = n3;
     let y2 = n4;
+
+    function CheckValidity(num1, num2, num3, num4, expression){
+        if (Number.isInteger(expression)){
+            return `{${num1}, ${num2}} to {${num3}, ${num4}} is valid`
+        }else{
+            return `{${num1}, ${num2}} to {${num3}, ${num4}} is invalid`
+        }
+    }
 
     let expression1 = Math.sqrt((x0 - x1)**2 + (y0 - y1) ** 2);
     let expression2 = Math.sqrt((x0 - x2)**2 + (y0 - y2) ** 2);

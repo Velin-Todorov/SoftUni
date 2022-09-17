@@ -1,18 +1,25 @@
 function SameNumbers(number){
-    let number_as_str = String(number)
-    let first_number = number_as_str[0]
+    let numberAsString = String(number);
+    let firstElement = numberAsString[0];
+    let set = new Set(numberAsString);
+    let arrayNumber = Array.from(numberAsString);    
+
     let result;
-    let sum = 0;
 
-
-    for (let i = 1; i <= number_as_str.length; i++){
-        if (first_number != number_as_str[i]){
-            result = false
-        }else{
-            result = true
-        }
-        sum += Number(number_as_str[i-1])
+    if (firstElement == [...set.values()]){
+        result = true;
+    }else{
+        result = false;
     }
-    console.log(result)
-    console.log(sum)
+
+
+
+    const arrayOfInts = arrayNumber.map(x => Number(x));
+    const reducer = (accumulator, curr) => accumulator + curr;
+    
+    console.log(result);
+    console.log(arrayOfInts.reduce(reducer, 0));
+    
 }
+
+SameNumbers(2222232)
