@@ -1,30 +1,20 @@
-function MagicMatrix(matrix){
-    let sumRow = 0;
-    let sumCol = 0;
-    let isMagical = 0;
-    let summation = 0;
+function magicMatrices(matrix){
+    for (let i = 0; i < matrix.length - 1; i++){
+        let sumRowOne = matrix[i].reduce((acc, el) => acc + el);
+        let sumRowTwo = matrix[i + 1].reduce((acc, el) => acc + el);
+        let sumColOne = 0;
+        let sumColTwo = 0;
 
-    for (let row = 0; row < matrix.length; row++){
-        sumRow = matrix[row].reduce((a, b) => a + b, summation);
-        for (let col = 0; col < matrix[row].length; col++){
-            if (matrix.length == matrix[0].length){
-                sumCol += Number(matrix[col][row])
-            }else{
-                if (col < matrix.length - 1){
-                    sumCol += Number(matrix[col][row]);
-                }
-            }
-        }
-        if (sumRow === sumCol){
-            isMagical += 1;
-            sumRow = 0;
-            sumCol = 0;
+        for (let col = 0; col < matrix.length; col++){
+            sumColOne += matrix[i][col];
+            sumColTwo += matrix[i+1][col];
         }
 
+        if (sumRowOne !== sumRowTwo || sumColOne !== sumColTwo){
+            return false;
+        }
     }
-    if (isMagical == matrix.length){
-        return true;
-    }
-
-    return false;
+    return true;
 }
+
+
