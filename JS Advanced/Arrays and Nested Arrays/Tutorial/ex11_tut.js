@@ -1,38 +1,61 @@
 function DiagonalAttack(arr){
-
-    let sumMainDiagonal1 = 0;
-    let sumMainDiagonal2 = 0;
+    let sumMainDiagonal = 0;
+    let sumSecondaryDiagonal = 0;
+    let DiagonalIndeces = [];
+    let match;
     let matrix = [];
-    let centerElementRow = 0;
-    let centerElementCol = 0;
+
 
     for (let n of arr){
-        let elements = n.split(" ").map(Number);
-        matrix.push(elements);
+       let data = n.split(' ')
+        let array = []
+        for (let n of data){
+            array.push(parseInt(n));
+        }
+        matrix.push(array);
+    }
+    let n = matrix.length;
+
+    for (let i = 0; i < matrix.length; i++){
+        sumMainDiagonal += matrix[i][i];
+        sumSecondaryDiagonal += matrix[i][n - i - 1];
+        DiagonalIndeces.push([i, i]);
+        DiagonalIndeces.push([i, n - i - 1]);
+        
     }
 
-    for (let row = 0; row <matrix.length; row++){
-        sumMainDiagonal1 += Number(matrix[row][row]);
-        sumMainDiagonal2 += Number(matrix[row][matrix[row].length - 1 - row]);
+    if (sumMainDiagonal == sumSecondaryDiagonal){
+        for (let row = 0; row < matrix.length; row++){
+            for (let col = 0; col < matrix[row].length; col++){
+                match = false;
 
-        if(matrix[row][row] == matrix[row][matrix[row].length - 1 - row]){
-            centerElementRow = row;
-            centerElementCol = row;
+                for (let n of DiagonalIndeces){
+                    let i = n[0];
+                    let j = n[1];
+
+                    if (i == row && j == col){
+                        match = true;
+                        break
+                    }
+                }
+                if (match){
+                    continue;
+                }else{
+                    matrix[row][col] = sumMainDiagonal;           
+                }
+
+            }
+        }
+        for (let n of matrix){
+            console.log(n.join(' '));
         }
 
+    }else{
+        for (let n of matrix){
+            console.log(n.join(' '));
+        }
     }
-
-    
-    matrix[centerElementRow + 1][centerElementCol] = sumMainDiagonal1
-    matrix[centerElementRow - 1][centerElementCol] = sumMainDiagonal1
-    matrix[centerElementRow][centerElementCol + 1] = sumMainDiagonal1
-    matrix[centerElementRow][centerElementCol - 1] = sumMainDiagonal1
-        
-
 }
-
-DiagonalAttack(['5 3 12 3 1',
-'11 4 23 2 5',
-'101 12 3 21 10',
-'1 4 5 2 2',
-'5 22 33 11 1'])
+DiagonalAttack(['1 1 1',
+'1 1 1',
+'1 1 0'])
