@@ -1,27 +1,18 @@
 function search() {
-   let data = document.querySelectorAll('ul#towns li')
-   let countMatches = 0;
-   let searchValue = document.getElementById('searchText').value;
+   let text = document.getElementById('searchText');
+   let cities = document.querySelectorAll('ul#towns li');
+   let count = 0;
    let result = document.getElementById('result');
-   let res = '';
+   let matches = [];
 
-   for (let n of data){
-      n.style.fontWeight = 'normal';
-      n.style.textDecoration = ''
+   for (let n of cities){
+      if (n.textContent.match(text.value)){
+         n.style.textDecoration = 'underline'
+         n.style.fontWeight = 'bold';
+         matches.push(n);
+         count += 1;
+      }
    }
-
-   for (let n of data){
-     let text = n.textContent;
-     
-     if(text.match(searchValue)){
-         countMatches++;
-         n.style.fontWeight = 'bold'
-         n.style.textDecoration = 'underline'      
-     }
-
-   }
-
-   res = `${countMatches} matches found`
-   result.textContent = res;
+   result.textContent = `${count} matches found`
    
 }
