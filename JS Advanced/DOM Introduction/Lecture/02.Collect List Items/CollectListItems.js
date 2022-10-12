@@ -1,9 +1,9 @@
 function extractText() {
-    let content = document.querySelectorAll('ul#items li');
-    let result = document.querySelector('#result');
-
-    for (let n of content){
-        result.value += n.textContent + "\n";
+    let ul = document.querySelectorAll('#items li')
+    let result = document.getElementById('result')
+    
+    for (let n of ul){
+        result.textContent += n.textContent + '\n';
     }
 
 }

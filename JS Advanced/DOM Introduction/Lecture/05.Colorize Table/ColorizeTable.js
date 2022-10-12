@@ -1,15 +1,10 @@
 function colorize() {
-    let table = document.querySelectorAll("table tr");
-
-    let index = 0;
-    for (let row of table){
-        index++ 
-        if (index % 2  == 0){
-            row.style.background = 'teal';
-        }
+    let table = document.querySelectorAll("tr");
+    
+    for (let i = 1; i < table.length; i+=2){
+        let el = table[i];
+        
+        el.style.backgroundColor = 'teal'
     }
     
-    
-    
-
 }
