@@ -1,21 +1,26 @@
-function addItem() {
-    let ul = document.getElementById("items");
-    let newItemText = document.getElementById("newItemText");
+function addItem(){
+
+    let ul = document.getElementById('items');
+    let input = document.getElementById('newItemText').value;
+
     let li = document.createElement('li');
-    li.textContent = newItemText.value; 
+    let a = document.createElement('a');
+
+    a.setAttribute('href', '#');
+    a.innerText = '[Delete]'
+
+    li.textContent = input
+    li.appendChild(a);
+
     ul.appendChild(li);
+    document.getElementById('newItemText').value = '';
 
-    newItemText.value = '';
+    a.addEventListener('click', Delete);
 
-    let anchor = document.createElement('a');
-    anchor.href = '#';
-    anchor.textContent = '[Delete]';
-    li.appendChild(anchor);
-
-    anchor.addEventListener('click', Delete);
 
     function Delete(){
-        ul.removeChild(li);
+        let parent = a.parentNode;
+        ul.removeChild(parent);
     }
 
 }

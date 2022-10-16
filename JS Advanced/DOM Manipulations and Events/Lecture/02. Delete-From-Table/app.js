@@ -1,23 +1,21 @@
 function deleteByEmail() {
-    let emailToBeDeleted = document.getElementsByTagName('input')[0].value; 
-    let result = document.getElementById('result'); 
-    let tableBody = document.querySelectorAll('tr td:nth-child(2)');
-    let deleted = false;
+    
+    let emailToBeDeleted = document.querySelector('input').value
+    let table = document.querySelectorAll('tr td:nth-child(2)');
+    let result = document.getElementById('result');
+    let match = false;
 
-
-    for (let n of tableBody){
-        if (n.textContent == emailToBeDeleted){
-            let row = n.parentNode;
-            row.parentNode.removeChild(row);
-            
-            deleted =true;            
+    for (let n of table){
+        if (emailToBeDeleted == n.textContent){
+            let parent = n.parentNode;
+            document.querySelector('tbody').removeChild(parent);
+            match = true;
+            break;
         }
     }
-    
-    if (deleted){
-        result.textContent = 'Deleted';
+    if (match){
+        result.textContent = 'Deleted.'
     }else{
-        result.textContent = 'Not found.';
+        result.textContent = 'Not found.'
     }
-
 }
