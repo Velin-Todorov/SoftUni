@@ -1,24 +1,38 @@
 function solve() {
 
-    let number = Number(document.getElementById('input'));
-    let selectMenu = document.getElementById('selectMenuTo');
+    let btn = document.querySelector('button')
+    btn.addEventListener('click', solution)
 
+    let selectMenu = document.getElementById('selectMenuTo');
+    
     const hexadecimalOpt = document.createElement('option')
-    hexadecimalOpt.innerHTML = '<option selected value="hexadecimal">Hexadecimal</option>'
+    hexadecimalOpt.setAttribute('value', 'hexadecimal')
+    hexadecimalOpt.innerText = 'Hexadecimal';
     
     const binaryOpt = document.createElement('option')
-    binaryOpt.innerHTML = '<option selected value="binary">Binary</option>'
+    binaryOpt.setAttribute('value', 'binary')
+    binaryOpt.innerText = 'Binary';
 
     selectMenu.appendChild(hexadecimalOpt);
     selectMenu.appendChild(binaryOpt);
+    
+    function solution() {
 
-    let selectedValue = selectMenu.value;
-    console.log(selectedValue)
+        let number = document.getElementById('input').value;
+        let result = document.getElementById('result');
+        
+        let value = selectMenu.value;
+        let resVal;
 
-
-    if (selectedValue== 'Binary'){
-        console.log(1);
-    }else{
-        console.log(2);
+        if (value == 'hexadecimal'){
+            resVal = parseInt(number).toString(16).toUpperCase()
+            result.value += resVal;
+            
+        }else if (value == 'binary'){
+            resVal = parseInt(number).toString(2);
+            result.value += resVal;
+        }
     }
+
+
 }
