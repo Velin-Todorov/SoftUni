@@ -1,5 +1,5 @@
-const {isOddOrEven} = require('./ex2_tut')
 const {expect} = require('chai')
+const {isOddOrEven} = require('./ex2_tut')
 const {assert} = require('chai')
 
 describe('isOddOrEven', () => {
