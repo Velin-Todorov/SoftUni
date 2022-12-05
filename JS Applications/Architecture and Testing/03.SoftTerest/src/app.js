@@ -1,53 +1,83 @@
-import { login } from './login.js'
-import { register } from './register.js'
-
-let body = document.getElementsByTagName('body')[0]
-let sectionReg = document.getElementById('Register')
-let sectionLog = document.getElementById('Login')
-let sectionHome = document.getElementById('Home')
-let sectionDetails = document.getElementById('ContentDetails')
-let sectionDashboard = document.getElementById('Dashboard')
-let sectionIdeas = document.getElementById('SharingIdeas')
-let footer = document.querySelector('footer')
-
-let navBarLinks = document.querySelector('#navbarResponsive ul')
-let navigation = document.getElementById('Navigation')
-
-navBarLinks.addEventListener('click', controller)
-navigation.querySelector('.navbar-brand').addEventListener('click', bodyReplaceHome)
+import { setupHome, showHome } from './home.js'
+import { setupLogin, showLogin } from './login.js'
+import { setupRegister, showRegister } from './register.js'
+import { setupDashboard, showDashboard } from './dashboard.js'
+import { setupDetails } from './showDetails.js'
+import { showCreate, setupCreate } from './create.js'
 
 
-function controller(ev) {
-    ev.preventDefault();
-    if (ev.target.parentElement.innerText == 'Register') {
-        bodyReplaceReg()
-        register()
-    } else if (ev.target.parentElement.innerText == 'Login') {
-        bodyReplaceLog()
-        login()
-    } else if (ev.target.parentElement.innerText == 'Dashboard') {
-        bodyReplaceDashboard()
+const main = document.querySelector('main')
+
+
+const links = {
+    'home-link': showHome,
+    'registerLink': showRegister,
+    'loginLink': showLogin,
+    'dashboard-link': showDashboard,
+    'create-link': showCreate
+}
+
+setupSection('home', setupHome)
+setupSection('register', setupRegister)
+setupSection('login', setupLogin)
+setupSection('dashboard', setupDashboard)
+setupSection('contentDetails', setupDetails)
+setupSection('sharingIdeas', setupCreate)
+
+setupNavigation()
+showHome()
+
+function setupNavigation() {
+    const authToken = localStorage.getItem('authToken')
+
+    if (authToken != null) {
+        Array.from(document.querySelectorAll('.nav-item-guest')).forEach(x => x.style.display = 'none')
+        Array.from(document.querySelectorAll('.nav-item-user')).forEach(x => x.style.display = 'block')
+    } else {
+        Array.from(document.querySelectorAll('.nav-item-user')).forEach(x => x.style.display = 'none')
+        Array.from(document.querySelectorAll('.nav-item-guest')).forEach(x => x.style.display = 'block')
     }
-    
+
+    document.getElementById('Navigation').addEventListener('click', (ev) => {
+        const view = links[ev.target.id]
+
+        if (typeof view == 'function') {
+            ev.preventDefault(),
+                view();
+        }
+    })
+
+    document.getElementById('logoutBtn').addEventListener('click', logout)
+
 }
 
-function bodyReplaceReg() {
-    sectionReg.style.display = 'block'
-    body.replaceChildren(navigation, sectionReg)
-}
+async function logout(ev) {
 
-function bodyReplaceLog() {
-    sectionLog.style.display = 'block'
-    body.replaceChildren(navigation, sectionLog)
-
-}
-function bodyReplaceHome(ev) {
     ev.preventDefault();
-    body.replaceChildren(navigation, sectionHome, footer)
+    
+    const authToken = localStorage.getItem('authToken')
+    const response = await fetch('http://localhost:3030/users/logout', {
+        method: 'get',
+        headers: {
+            'X-Authorization': authToken
+        }
+    });
+
+    if (response.ok){
+        localStorage.removeItem('authToken');    
+        localStorage.removeItem('userId');
+        localStorage.removeItem('email');
+
+        Array.from(document.querySelectorAll('.nav-item-guest')).forEach(l => l.style.display = 'block')
+        Array.from(document.querySelectorAll('.nav-item-user')).forEach(l => l.style.display = 'none');
+
+        showHome();
+    }
+
 }
 
-function bodyReplaceDashboard() {
-    sectionDashboard.style.display = 'block'
-    body.replaceChildren(navigation, sectionDashboard)
-}
 
+function setupSection(sectionId, setup) {
+    const section = document.getElementById(sectionId)
+    setup(main, section)
+}

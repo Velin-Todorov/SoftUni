@@ -1,52 +1,55 @@
-import { validateRegistration, getHeaders, onSuccessReg } from './utility.js'
+import { showHome } from "./home.js";
 
-export function register() {
+let main;
+let section
 
-    let body = document.getElementsByTagName('body')[0]
-    let section = document.getElementById('Register')
-    let navigation = document.getElementById('Navigation')
+export function setupRegister(mainTarget, sectionTarget) {
+    main = mainTarget
+    section = sectionTarget
 
-    body.replaceChildren(navigation, section)
-
-    let form = body.querySelector('form')
-    form.addEventListener('submit', registration)
-
-   
-    async function registration(ev) {
-        ev.preventDefault();
-
+    const form = section.querySelector('form')
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
         let formData = new FormData(form)
         let email = formData.get('email')
-        let pass = formData.get('password')
-        let rePass = formData.get('repeatPassword')
+        let password = formData.get('password')
+        let rePassword = formData.get('repeatPassword')
+
+        if (email.length < 3 || password !== rePassword){
+            return alert('Wrong data')
+        }
+
+        if (email == '' || password == '' || rePassword == ''){
+            return alert('All fields are mandatory')
+        }
 
         const url = 'http://localhost:3030/users/register'
-        try {
 
-            let body = {
-                email,
-                password: pass,
-            }
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({email, password})
+        })
 
-            if (!validateRegistration(email, pass, rePass)) {
-                form.reset();
-                return;
-            }
+        if (response.ok){
+            event.target.reset();
 
-
-            const response = await fetch(url, getHeaders('POST', body))
             const data = await response.json()
-            localStorage.setItem('email', JSON.stringify(data.email))
-            localStorage.setItem('accessToken', JSON.stringify(data.accessToken))
-            
-            if (response.status == 200){
-                onSuccessReg()
-            }
+            localStorage.setItem('authToken', data.accessToken);
+            localStorage.setItem('email', data.email);
+            localStorage.setItem('userId', data._id);
 
-        } catch (error) {
-            alert(`Error: ${error.message}`)
+            Array.from(document.querySelectorAll('.nav-item-user')).forEach(x => x.style.display = 'block')
+            Array.from(document.querySelectorAll('.nav-item-guest')).forEach(x => x.style.display = 'none')
+
+            showHome()
         }
-        
-    }
-    form.reset()
+    })
+}
+
+export async function showRegister() {
+    main.innerHTML = '';
+    main.appendChild(section)
 }

@@ -1,39 +1,48 @@
-import {getHeaders} from './utility.js'
+import {showHome} from './home.js'
 
-export function login(){
-    let body = document.getElementsByTagName('body')[0]
-    let section = document.getElementById('Login')
-    let navigation = document.getElementById('Navigation')
+let main;
+let section
 
-    body.replaceChildren(navigation, section)
+export function setupLogin(mainTarget, sectionTarget) {
+    main = mainTarget
+    section = sectionTarget
 
-    let form = document.querySelector('form')
-    form.addEventListener('submit', login)
-
-    async function login(ev){
-        ev.preventDefault();
-
+    const form = section.querySelector('form')
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
         let formData = new FormData(form)
-
         let email = formData.get('email')
         let password = formData.get('password')
+
         const url = 'http://localhost:3030/users/login'
-        
-        try{
-            if (email !== '' && password !== ''){
-                const response = await fetch (url, getHeaders('POST',{email, password}))
-                const data = await response.json()
-                localStorage.setItem('email', JSON.stringify(data.email))
-                localStorage.setItem('accessToken', JSON.stringify(data.accessToken))
-                
-            }
 
-        }catch (error){
-            alert(`Error: ${error.message}`)
-        }   
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({email, password})
+        })
 
-        form.reset()
+        if (response.ok){
+            event.target.reset();
 
-    }
+            const data = await response.json()
+            localStorage.setItem('authToken', data.accessToken);
+            localStorage.setItem('email', data.email);
+            localStorage.setItem('userId', data._id);
 
+            Array.from(document.querySelectorAll('.nav-item-user')).forEach(x => x.style.display = 'block')
+            Array.from(document.querySelectorAll('.nav-item-guest')).forEach(x => x.style.display = 'none')
+
+        }
+
+        showHome()
+    })
+
+}
+
+export async function showLogin() {
+    main.innerHTML = '';
+    main.appendChild(section)
 }
