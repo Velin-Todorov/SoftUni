@@ -2,6 +2,13 @@
 
 
 <!--Home Page-->
+
+{% block header %}
+<header></header>
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
 <div class="container-inline">
     <section id="welcomePage">
         <div id="welcome-message">
@@ -33,3 +40,4 @@
         </form>
     </section>
 </div>
+{% endblock %}
