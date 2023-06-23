@@ -19,7 +19,8 @@ from django.urls import path, include
 from common.views import home_page
 
 urlpatterns = [
-    path('', home_page, name="home page"),
-    # path('album/', ),
+    path('', home_page, name="home_page"),
+    path('album/', include('albums.urls'), name='album'),
     path('admin/', admin.site.urls),
+    path('profile/', include('auth_user.urls'), name='profile')
 ]
