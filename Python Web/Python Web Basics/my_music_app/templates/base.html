@@ -2,51 +2,46 @@
 <html lang="en">
 
 {% block head %}
-
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>My Music App</title>
     <!-- Static Load -->
-    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="stylesheet" href="/static/css/style.css"/>
 </head>
 {% endblock %}
 
-
+{% block body %}
 <body>
-    {% block header %}
-    <header>
+<div id="box">
+
+    <!-- Navigation Bar -->
+    
+    <!-- <header>
         <nav>
             <img src="/static/images/headphones.png" alt="headphones">
-            <a href="#">Home</a>
-            <ul></ul>
+            <a href="#">Home</a><ul></ul>
+            {% block with_profile %}
             <ul>
                 <!--Only for user with created profile-->
-                <li><a href="#">Create Album</a></li>
-                <li><a href="#">Profile</a></li>
-            </ul>
-        </nav>
-    </header>
-    {% endblock %}
+                <!-- <li><a href="#">Create Album</a></li>
+                <li><a href="#">Profile</a></li> -->
+            <!-- </ul>
+            {% endblock %} -->
+        <!-- </nav>
+    </header> --> 
+    <!-- End Navigation Bar -->
 
-    {% block content %}
-    <div id="box">
+    <!-- Main Content -->
 
-        <!-- Navigation Bar -->
-         <!-- End Navigation Bar -->
-
-            <!-- Main Content -->
-
-            <!-- Footer -->
-            <!-- End Footer -->
-
-    </div>
-    {% endblock %}
+    <!-- Footer -->
     <footer>
         <div>
             &copy;SoftUni Team 2022. All rights reserved.
         </div>
     </footer>
+    <!-- End Footer -->
+
+</div>
 </body>
-
-
+{% endblock %}
 </html>

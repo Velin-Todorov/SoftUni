@@ -1,31 +1,48 @@
+{% extends 'base.html' %}
 <!--Details Page-->
+{% block body %}
+{{ block.super }}
+
+<header>
+    <nav>
+        <img src="/static/images/headphones.png" alt="headphones">
+        <a href="/">Home</a><ul></ul>
+        <ul>
+            <!--Only for user with created profile-->
+            <li><a href="{% url 'add_album' %}">Create Album</a></li>
+            <li><a href="{% url 'profile_details' %}">Profile</a></li>
+        </ul>
+    </nav>
+</header>
+
 <section id="detailsPage">
     <div class="wrapper">
 
         <div class="albumCover">
             <!-- Album Image -->
-            <img src="/static/images/Lorde.jpg" alt="Cover Image">
+            <img src="" alt="Cover Image">
         </div>
 
         <div class="albumInfo">
 
             <div class="albumText">
                 <!-- Album Info -->
-                <h1>Name: Melodrama</h1>
-                <h3>Artist: Lorde</h3>
-                <h4>Genre: Pop Music</h4>
-                <h4>Price: $7.33</h4>
-                <p>Description: Melodrama is the second studio album by New Zealand singer-songwriter Lorde.
-                    It was released on 16 June 2017 by Lava and Republic Records and distributed through
-                    Universal.</p>
+                <h1>Name: {{ album.album_name }}</h1>
+                <h3>Artist: {{ album.artist }}</h3>
+                <h4>Genre: {{ album.genre }}</h4>
+                <h4>Price: {{ album.price }}</h4>
+                {% if album.description %}
+                <p>Description: {{ album.description }}</p>
+                {% endif %}
             </div>
 
             <div class="actionBtn">
                 <!-- Album Buttons -->
-                <a href="#" class="edit">Edit</a>
-                <a href="#" class="remove">Delete</a>
+                <a href="{% url 'edit_album' id=album.id %}" class="edit">Edit</a>
+                <a href="{% url 'delete_album' id=album.id %}" class="remove">Delete</a>
             </div>
 
         </div>
     </div>
 </section>
+{% endblock %}
