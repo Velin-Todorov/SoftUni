@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from .forms import AlbumForm
+from .forms import AlbumForm, DeleteAlbumForm
 from auth_user.models import Profile
 from .models import Album
 
@@ -52,7 +52,7 @@ def delete_album(request, id):
     album = Album.objects.get(pk=id)
     
     if request.method == 'GET':
-        form = AlbumForm(instance=album)
+        form = DeleteAlbumForm(instance=album)
         context = {'form': form}
         return render(request, 'delete-album.html', context)
     
