@@ -1,3 +1,22 @@
+{% extends 'base.html' %}
+
+{% block body %}
+{{ block.super }}
+
+<header>
+    <nav>
+        <img src="/static/images/headphones.png" alt="headphones">
+        <a href="/">Home</a><ul></ul>
+        <ul>
+            <!--Only for user with created profile-->
+            <li><a href="{% url 'add_album' %}">Create Album</a></li>
+            <li><a href="{% url 'profile_details' %}">Profile</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+
 <!--Details Page-->
 <section id="detailsPage">
     <div class="wrapper">
@@ -8,16 +27,18 @@
 
         <div class="profileText">
             <!-- Profile Info -->
-            <h1>Username: aleksandra_12345</h1>
-            <h1>Email: aleksandra@email.com</h1>
+            <h1>Username: {{ profile.username }}</h1>
+            <h1>Email: {{ profile.email }}</h1>
+            {% if age %}
             <h1>Age: 27</h1>
-            <h1>Albums: 3</h1>
+            {% endif %}
+            <h1>Albums: {{ album_count }}</h1>
         </div>
 
         <div class="actionBtn">
             <!-- Button for Deleting the Profile -->
-            <a href="#" class="remove">Delete</a>
+            <a href="{% url 'delete_profile' %}" class="remove">Delete</a>
         </div>
-
     </div>
 </section>
+{% endblock %}
